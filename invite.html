@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're invited — FlockTrot</title>
+<style>
+  :root {
+    --bg: #FAF3E7;
+    --ink: #2c3a2c;
+    --olive: #4a6b47;
+    --olive-dark: #33472f;
+    --orange: #c98a3e;
+    --muted: #6b6558;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+  }
+  .logo {
+    width: 140px;
+    height: auto;
+    margin-bottom: 16px;
+  }
+  h1 {
+    color: var(--olive-dark);
+    font-size: 26px;
+    margin: 0 0 8px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 28px;
+    max-width: 360px;
+  }
+  .open-btn {
+    display: inline-block;
+    background: var(--olive);
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  .hint {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 36px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid #e8e0cf;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 380px;
+    width: 100%;
+  }
+  .card h2 {
+    color: var(--olive-dark);
+    font-size: 15px;
+    margin: 0 0 10px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: #e8e0cf;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0 0 12px;
+  }
+  .code-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .code-box {
+    flex: 1;
+    background: var(--bg);
+    border: 1px dashed #c9bfa3;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--ink);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .copy-btn {
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .copy-btn.copied {
+    background: var(--olive);
+  }
+  .missing {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 360px;
+  }
+</style>
+</head>
+<body>
+  <img class="logo" src="logo.png" alt="FlockTrot">
+
+  <div id="app">
+    <!-- filled in by script below -->
+  </div>
+
+  <script>
+    function getToken() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("token");
+    }
+
+    const token = getToken();
+    const app = document.getElementById("app");
+
+    if (!token) {
+      app.innerHTML = `
+        <h1>Invite link incomplete</h1>
+        <p class="missing">This invite link is missing its code. Ask whoever invited you to resend it from FlockTrot.</p>
+      `;
+    } else {
+      const appLink = "camptripplanner://invite/" + encodeURIComponent(token);
+
+      app.innerHTML = `
+        <h1>You're invited to a trip!</h1>
+        <p class="subtitle">Tap below to open the invite in FlockTrot.</p>
+        <a class="open-btn" href="${appLink}" id="openBtn">Open in FlockTrot</a>
+        <p class="hint">Nothing happens? You may not have the app installed yet.</p>
+
+        <div class="card">
+          <span class="badge">Coming soon to Google Play</span>
+          <h2>Don't have FlockTrot yet?</h2>
+          <p>Once you've installed the app, come back to this link, or open FlockTrot and paste this code into <strong>Menu &gt; Have an invite?</strong>:</p>
+          <div class="code-row">
+            <div class="code-box" id="codeBox">${token}</div>
+            <button class="copy-btn" id="copyBtn">Copy</button>
+          </div>
+        </div>
+      `;
+
+      // Best-effort automatic attempt — many mobile browsers block a scripted
+      // top-level navigation to a custom scheme without a user gesture, so
+      // this is a bonus, not the primary path. The button above is what
+      // reliably works.
+      setTimeout(() => {
+        try { window.location.href = appLink; } catch (e) {}
+      }, 400);
+
+      document.getElementById("copyBtn").addEventListener("click", function () {
+        const btn = this;
+        navigator.clipboard.writeText(token).then(() => {
+          btn.textContent = "Copied!";
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.textContent = "Copy";
+            btn.classList.remove("copied");
+          }, 2000);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
