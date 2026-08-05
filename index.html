@@ -4,96 +4,82 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FlockTrot — Group camping trip planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #FAF3E7;
-    --ink: #2c3a2c;
-    --olive: #4a6b47;
-    --olive-dark: #33472f;
-    --orange: #c98a3e;
-    --muted: #6b6558;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 24px;
-  }
-  h1 {
-    margin: 0 0 8px;
-    font-size: 32px;
-    color: var(--olive-dark);
-  }
-  .logo {
-    width: 180px;
-    height: auto;
-    margin-bottom: 16px;
-  }
-  .tagline {
-    color: var(--muted);
-    font-size: 17px;
-    margin-bottom: 16px;
-  }
-  .about {
-    max-width: 520px;
-    color: var(--ink);
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 32px;
-  }
-  .badges {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 40px;
-  }
-  .badge {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: 8px;
-    background: #e8e0cf;
-    color: var(--muted);
-    font-size: 14px;
-    font-weight: 600;
-  }
-  .badge.live {
-    background: var(--olive);
-    color: white;
-  }
-  footer {
-    margin-top: 24px;
-    font-size: 14px;
-    color: var(--muted);
-  }
-  footer a {
-    color: var(--olive);
-    margin: 0 10px;
-  }
+body{margin:0}
+a{color:#4a6b47}
+a:hover{color:#33472f}
 </style>
 </head>
 <body>
-  <img class="logo" src="logo.png" alt="FlockTrot logo">
-  <h1>FlockTrot</h1>
-  <p class="tagline">Plan group camping trips together, all in one app.</p>
-  <p class="about">FlockTrot is a mobile app for planning group camping trips with family and friends. It helps a group build a shared itinerary, coordinate who's bringing which supplies and meals, track shared costs and settle up, and keep everyone's campsite details in one place — instead of juggling group texts and spreadsheets.</p>
-  <p class="about">FlockTrot uses Google Sign-In to create your account. We only request your name and email address, which we use to identify you to your trip groups — we don't request access to your Gmail, Drive, or any other Google data. See our <a href="privacy-policy.html">Privacy Policy</a> for full details on what we collect and why.</p>
+<div style="min-height:100vh;background:#FAF3E7;font-family:'Work Sans',sans-serif;color:#2c3a2c;display:flex;flex-direction:column;">
 
-  <div class="badges">
-    <span class="badge live">In testing on Android</span>
-    <span class="badge">Coming soon on iOS</span>
+  <header style="width:100%;box-sizing:border-box;">
+    <div style="display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:22px 28px;">
+      <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#33472f;font-weight:700;font-size:18px;font-family:'Zilla Slab',serif;">FlockTrot</a>
+    </div>
+  </header>
+
+  <div style="width:100%;box-sizing:border-box;">
+    <div style="max-width:960px;margin:0 auto;padding:0 28px;">
+      <svg width="100%" height="130" viewBox="0 0 800 130" preserveAspectRatio="xMinYMid meet" aria-hidden="true" style="display:block">
+        <polygon points="0,130 150,35 300,130" fill="#c9d6c2"></polygon>
+        <polygon points="110,130 300,18 490,130" fill="#9fb495"></polygon>
+        <polygon points="320,130 500,45 680,130" fill="#4a6b47"></polygon>
+        <polygon points="530,130 660,65 800,130" fill="#33472f"></polygon>
+        <circle cx="690" cy="32" r="24" fill="#c98a3e"></circle>
+      </svg>
+    </div>
   </div>
 
-  <footer>
-    <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a>
+  <main style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px 64px;margin-top:-28px;">
+
+    <div style="background:#FAF3E7;border-radius:16px;padding:28px 32px 8px;max-width:600px;">
+      <img class="logo" src="logo.png" alt="FlockTrot logo" style="width:170px;height:auto;margin-bottom:14px;">
+      <p style="color:#6b6558;font-size:17px;margin:0 0 24px;">Plan group camping trips together, all in one app.</p>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:14px;width:100%;max-width:340px;margin-bottom:28px;">
+      <div style="flex:1;height:1px;background:#e8e0cf;"></div>
+      <svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true">
+        <line x1="4" y1="24" x2="24" y2="14" stroke="#c9bfa3" stroke-width="2"></line>
+        <line x1="24" y1="24" x2="4" y2="14" stroke="#c9bfa3" stroke-width="2"></line>
+        <ellipse cx="14" cy="19" rx="3.4" ry="7" fill="#c98a3e"></ellipse>
+        <ellipse cx="14" cy="17" rx="2" ry="4.2" fill="#e3ab5f"></ellipse>
+      </svg>
+      <div style="flex:1;height:1px;background:#e8e0cf;"></div>
+    </div>
+
+    <div style="background:#ffffff;border:1px solid #e8e0cf;border-radius:14px;padding:28px 32px;max-width:560px;box-shadow:0 2px 10px rgba(51,71,47,0.06);margin-bottom:36px;">
+      <p style="font-size:15px;line-height:1.65;margin:0;">FlockTrot is a mobile app for planning group camping trips with family and friends. It helps a group build a shared itinerary, coordinate who's bringing which supplies and meals, track shared costs and settle up, and keep everyone's campsite details in one place — instead of juggling group texts and spreadsheets.</p>
+    </div>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:8px;">
+      <span style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#4a6b47;color:#ffffff;font-size:14px;font-weight:600;">
+        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,2 14,14 2,14" fill="currentColor"></polygon></svg>
+        In testing on Android
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#e8e0cf;color:#6b6558;font-size:14px;font-weight:600;">
+        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,2 14,14 2,14" fill="currentColor"></polygon></svg>
+        Coming soon on iOS
+      </span>
+    </div>
+
+  </main>
+
+  <footer style="width:100%;box-sizing:border-box;border-top:1px solid #e8e0cf;padding:24px 24px;">
+    <div style="max-width:960px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <nav style="display:flex;gap:16px;">
+        <a href="privacy-policy.html" style="color:#4a6b47;text-decoration:none;font-size:13px;">Privacy Policy</a>
+        <span style="color:#c9bfa3;font-size:13px;">·</span>
+        <a href="terms-of-service.html" style="color:#4a6b47;text-decoration:none;font-size:13px;">Terms of Service</a>
+      </nav>
+      <p style="color:#6b6558;font-size:12px;max-width:480px;text-align:center;margin:2px 0 0;">FlockTrot uses Google Sign-In to create your account. We only request your name and email address, which we use to identify you to your trip groups — we don't request access to your Gmail, Drive, or any other Google data. See our <a href="privacy-policy.html" style="color:#6b6558;text-decoration:underline;">Privacy Policy</a> for full details on what we collect and why.</p>
+      <div style="color:#6b6558;font-size:12px;">© 2026 FlockTrot</div>
+    </div>
   </footer>
+
+</div>
 </body>
 </html>
