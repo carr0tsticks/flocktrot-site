@@ -74,34 +74,48 @@ a:hover{color:#33472f}
     `;
   } else {
     const appLink = "camptripplanner://invite/" + encodeURIComponent(token);
+    const appStoreLink = "https://apps.apple.com/us/app/flocktrot/id6800438059";
+
+    // 2026-08-28: the real gap reported by a real tester (two sisters who
+    // didn't have the app yet) wasn't the copy — it's that this page never
+    // actually offered a way to GO INSTALL the app. "Open in FlockTrot"
+    // silently does nothing if the app isn't there yet (custom schemes
+    // fail silent in mobile browsers, no error, no prompt), and the old
+    // fallback card only offered a code to save for later with no link to
+    // actually go get the app. Restructured so the "get the app" card is
+    // the prominent, first-class path (most invite-link taps are from
+    // someone who doesn't have FlockTrot yet), not a footnote below a
+    // button that may not do anything.
+    const isAndroid = /android/i.test(navigator.userAgent);
+    const storeSection = isAndroid
+      ? `<p style="font-size:13px;color:#6b6558;line-height:1.5;margin:0;">FlockTrot for Android is finishing up testing right now. Email <a href="mailto:flocktrot@gmail.com">flocktrot@gmail.com</a> for early access, or open this link on an iPhone — it's live on the App Store there.</p>`
+      : `<a href="${appStoreLink}" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#000;color:#fff;font-size:15px;font-weight:700;padding:13px 22px;border-radius:10px;text-decoration:none;width:100%;box-sizing:border-box;">Download on the App Store</a>`;
 
     app.innerHTML = `
       <h1 style="color:#33472f;font-size:26px;margin:0 0 8px;font-family:'Zilla Slab',serif;">You're invited to a trip!</h1>
-      <p style="color:#6b6558;font-size:15px;margin:0 0 26px;max-width:360px;">Tap below to open the invite in FlockTrot.</p>
-      <a class="open-btn" href="${appLink}" style="display:inline-block;background:#4a6b47;color:#fff;font-size:17px;font-weight:700;padding:16px 34px;border-radius:10px;text-decoration:none;margin-bottom:12px;">Open in FlockTrot</a>
-      <p style="color:#6b6558;font-size:13px;margin:0 0 32px;">Nothing happens? You may not have the app installed yet.</p>
+      <p style="color:#6b6558;font-size:15px;margin:0 0 20px;max-width:360px;">Already have FlockTrot? Tap below to open the invite directly.</p>
+      <a class="open-btn" href="${appLink}" style="display:inline-block;background:#4a6b47;color:#fff;font-size:17px;font-weight:700;padding:16px 34px;border-radius:10px;text-decoration:none;margin-bottom:32px;">Open in FlockTrot</a>
 
       <div style="background:#ffffff;border:1px solid #e8e0cf;border-radius:12px;padding:22px;max-width:380px;width:100%;box-shadow:0 2px 10px rgba(51,71,47,0.06);box-sizing:border-box;">
-        <span style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;background:#e8e0cf;color:#6b6558;font-size:13px;font-weight:600;margin-bottom:16px;">
-          <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,2 14,14 2,14" fill="currentColor"></polygon></svg>
-          Coming soon to Google Play
-        </span>
-        <h2 style="color:#33472f;font-size:15px;margin:0 0 10px;font-family:'Zilla Slab',serif;">Don't have FlockTrot yet?</h2>
-        <p style="font-size:13px;color:#6b6558;line-height:1.5;margin:0 0 14px;">Once you've installed the app, come back to this link, or open FlockTrot and paste this code into <strong>Menu &gt; Have an invite?</strong>:</p>
-        <div style="display:flex;gap:8px;align-items:center;">
+        <h2 style="color:#33472f;font-size:16px;margin:0 0 10px;font-family:'Zilla Slab',serif;">Don't have FlockTrot yet?</h2>
+        ${storeSection}
+        <p style="font-size:12px;color:#9a917c;line-height:1.5;margin:16px 0 0;">After installing, come back to this link, or open FlockTrot and tap <strong>Have an invite? Join a trip</strong> in the top-left of your Trips list and paste in this code:</p>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
           <div style="flex:1;background:#FAF3E7;border:1px dashed #c9bfa3;border-radius:6px;padding:9px 11px;font-family:monospace;font-size:12px;color:#2c3a2c;overflow-x:auto;white-space:nowrap;" id="codeBox">${token}</div>
           <button id="copyBtn" style="background:#c98a3e;color:#fff;border:none;border-radius:6px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;">Copy</button>
         </div>
       </div>
     `;
 
-    // Best-effort automatic attempt — many mobile browsers block a scripted
-    // top-level navigation to a custom scheme without a user gesture, so
-    // this is a bonus, not the primary path. The button above is what
-    // reliably works.
-    setTimeout(() => {
-      try { window.location.href = appLink; } catch (e) {}
-    }, 400);
+    // NOTE: deliberately no auto-attempt at opening the appLink via
+    // window.location.href on page load anymore (removed 2026-08-11).
+    // iOS Safari can treat a scripted, non-gesture navigation to a custom
+    // URL scheme as untrusted and suppress it — and that suppression was
+    // observed to also swallow the *genuine* tap on the "Open in
+    // FlockTrot" button below it on the same page load, i.e. the
+    // auto-attempt was actively breaking the real button for iOS testers,
+    // not just failing harmlessly. The button's own href is the only path
+    // now; it's a real user gesture and doesn't have this problem.
 
     document.getElementById("copyBtn").addEventListener("click", function () {
       const btn = this;
