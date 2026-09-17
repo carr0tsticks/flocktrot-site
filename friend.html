@@ -2,117 +2,120 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Add me on FlockTrot</title>
+<meta name="description" content="Send a FlockTrot friend request.">
+<!-- Per-camper landing page: nothing stable to index. Kept crawlable (see
+     robots.txt) so this noindex is actually seen. -->
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#FAF3E7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14180F" media="(prefers-color-scheme: dark)">
+<meta name="apple-itunes-app" content="app-id=6800438059">
+<meta property="og:title" content="Add me on FlockTrot">
+<meta property="og:description" content="Send a friend request on FlockTrot — free on iPhone and Android.">
+<meta property="og:image" content="https://www.flocktrot.com/img/og-image.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-body{margin:0}
-a{color:#4a6b47}
-a:hover{color:#33472f}
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div style="min-height:100vh;background:#FAF3E7;font-family:'Work Sans',sans-serif;color:#2c3a2c;display:flex;flex-direction:column;">
 
-  <header style="width:100%;box-sizing:border-box;">
-    <div style="display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:22px 28px;">
-      <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#33472f;font-weight:700;font-size:18px;font-family:'Zilla Slab',serif;">FlockTrot</a>
-      <nav style="display:flex;gap:24px;">
-        <a href="privacy-policy.html" style="color:#6b6558;text-decoration:none;font-size:14px;font-weight:500;">Privacy</a>
-        <a href="terms-of-service.html" style="color:#6b6558;text-decoration:none;font-size:14px;font-weight:500;">Terms</a>
-      </nav>
-    </div>
-  </header>
-
-  <div style="width:100%;box-sizing:border-box;">
-    <div style="max-width:960px;margin:0 auto;padding:0 28px;">
-      <svg width="100%" height="110" viewBox="0 0 800 110" preserveAspectRatio="xMinYMid meet" aria-hidden="true" style="display:block">
-        <polygon points="0,110 150,28 300,110" fill="#c9d6c2"></polygon>
-        <polygon points="110,110 300,14 490,110" fill="#9fb495"></polygon>
-        <polygon points="320,110 500,36 680,110" fill="#4a6b47"></polygon>
-        <polygon points="530,110 660,52 800,110" fill="#33472f"></polygon>
-        <circle cx="690" cy="26" r="20" fill="#c98a3e"></circle>
-      </svg>
-    </div>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="index.html">
+      <img src="img/logo.webp" srcset="img/logo.webp 1x, img/logo@2x.webp 2x" width="260" height="63" alt="FlockTrot" style="height:30px;width:auto">
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="terms-of-service.html">Terms</a>
+    </nav>
   </div>
+</header>
 
-  <main style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px 64px;margin-top:-20px;">
-    <div style="background:#FAF3E7;border-radius:16px;padding:24px 28px 4px;">
-      <img class="logo" src="logo.png" alt="FlockTrot" style="width:120px;height:auto;margin-bottom:12px;">
-    </div>
+<main class="stage">
+  <img src="img/logo-stacked.webp" srcset="img/logo-stacked.webp 1x, img/logo-stacked@2x.webp 2x"
+       width="300" height="236" alt="" style="width:132px;height:auto;margin-bottom:var(--space-5)" decoding="async">
+  <div id="app" style="width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center"></div>
+</main>
 
-    <div id="app"></div>
-  </main>
-
-  <footer style="width:100%;box-sizing:border-box;border-top:1px solid #e8e0cf;padding:24px 24px;">
-    <div style="max-width:960px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:10px;">
-      <nav style="display:flex;gap:16px;">
-        <a href="privacy-policy.html" style="color:#4a6b47;text-decoration:none;font-size:13px;">Privacy Policy</a>
-        <span style="color:#c9bfa3;font-size:13px;">·</span>
-        <a href="terms-of-service.html" style="color:#4a6b47;text-decoration:none;font-size:13px;">Terms of Service</a>
-      </nav>
-      <div style="color:#6b6558;font-size:12px;">© 2026 FlockTrot</div>
-    </div>
-  </footer>
-
-</div>
+<footer class="site-footer">
+  <div class="wrap center">
+    <nav style="display:flex;gap:var(--space-4);justify-content:center;margin-bottom:var(--space-3)">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+    </nav>
+    <p style="font-size:.82rem;color:var(--ink-muted)">© 2026 FlockTrot</p>
+  </div>
+</footer>
 
 <script>
-  function getCamperId() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("id");
+  var APP_STORE = "https://apps.apple.com/us/app/flocktrot/id6800438059";
+  var PLAY_STORE = "https://play.google.com/store/apps/details?id=com.flocktrot.camptripplanner";
+
+  var APPLE_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.05 12.94c-.03-2.7 2.2-4 2.3-4.06-1.25-1.83-3.2-2.08-3.9-2.11-1.66-.17-3.24.98-4.08.98-.84 0-2.14-.96-3.52-.93-1.81.03-3.48 1.05-4.41 2.67-1.88 3.26-.48 8.08 1.35 10.72.9 1.29 1.97 2.74 3.38 2.69 1.36-.06 1.87-.88 3.51-.88s2.1.88 3.53.85c1.46-.03 2.38-1.32 3.27-2.62 1.03-1.5 1.46-2.95 1.48-3.03-.03-.01-2.84-1.09-2.87-4.32zM14.4 4.9c.74-.9 1.24-2.15 1.1-3.4-1.07.05-2.36.72-3.13 1.61-.68.79-1.28 2.06-1.12 3.27 1.2.09 2.42-.6 3.15-1.48z"/></svg>';
+  var PLAY_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 2.3c-.24.26-.38.66-.38 1.18v17.04c0 .52.14.92.38 1.18l.06.06 9.54-9.54v-.44L3.66 2.24l-.06.06z"/><path d="M16.4 15.42l-3.2-3.2v-.44l3.2-3.2.07.04 3.79 2.16c1.08.61 1.08 1.62 0 2.24l-3.79 2.16-.07.04z"/><path d="M16.47 15.38L13.2 12.1 3.6 21.7c.36.38.95.42 1.61.05l11.26-6.37z"/><path d="M16.47 8.62L5.21 2.25c-.66-.37-1.25-.33-1.61.05l9.6 9.6 3.27-3.28z"/></svg>';
+
+  function badge(href, small, strong, svg) {
+    return '<a class="store-badge" href="' + href + '" rel="noopener" style="width:100%;box-sizing:border-box;justify-content:center">' +
+           svg + '<span class="store-badge__text"><small>' + small + '</small><strong>' + strong + '</strong></span></a>';
   }
 
-  const camperId = getCamperId();
-  const app = document.getElementById("app");
+  // 2026-09-17: Android shipped, so the old "finishing up testing, email us for
+  // early access" fallback is gone. Both stores are live; we just lead with the
+  // one that matches the device so the right tap target comes first.
+  function storeButtons() {
+    var apple = badge(APP_STORE, "Download on the", "App Store", APPLE_SVG);
+    var play = badge(PLAY_STORE, "Get it on", "Google Play", PLAY_SVG);
+    var order = /android/i.test(navigator.userAgent) ? [play, apple] : [apple, play];
+    return '<div style="display:flex;flex-direction:column;gap:var(--space-2)">' + order.join("") + '</div>';
+  }
+
+  var camperId = new URLSearchParams(window.location.search).get("id");
+  var app = document.getElementById("app");
 
   if (!camperId) {
-    app.innerHTML = `
-      <h1 style="color:#33472f;font-size:26px;margin:0 0 8px;font-family:'Zilla Slab',serif;">Link incomplete</h1>
-      <p style="color:#6b6558;font-size:15px;max-width:360px;margin:0;">This link is missing a Camper ID. Ask whoever shared it to resend it from FlockTrot.</p>
-    `;
+    app.innerHTML =
+      '<h1 style="font-size:1.6rem">Link incomplete</h1>' +
+      '<p style="color:var(--ink-muted);max-width:36ch">This link is missing a Camper ID. Ask whoever shared it to resend it from FlockTrot.</p>';
   } else {
-    const appLink = "camptripplanner://friend/" + encodeURIComponent(camperId);
-    const appStoreLink = "https://apps.apple.com/us/app/flocktrot/id6800438059";
+    var appLink = "camptripplanner://friend/" + encodeURIComponent(camperId);
 
-    // Same App-Store-first structure as invite.html (2026-08-28 fix) — most
-    // taps on this link are from someone who doesn't have the app yet, so
-    // that path needs to be first-class, not a footnote under a button that
-    // may silently do nothing.
-    const isAndroid = /android/i.test(navigator.userAgent);
-    const storeSection = isAndroid
-      ? `<p style="font-size:13px;color:#6b6558;line-height:1.5;margin:0;">FlockTrot for Android is finishing up testing right now. Email <a href="mailto:flocktrot@gmail.com">flocktrot@gmail.com</a> for early access, or open this link on an iPhone — it's live on the App Store there.</p>`
-      : `<a href="${appStoreLink}" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#000;color:#fff;font-size:15px;font-weight:700;padding:13px 22px;border-radius:10px;text-decoration:none;width:100%;box-sizing:border-box;">Download on the App Store</a>`;
-
-    app.innerHTML = `
-      <h1 style="color:#33472f;font-size:26px;margin:0 0 8px;font-family:'Zilla Slab',serif;">Add me on FlockTrot!</h1>
-      <p style="color:#6b6558;font-size:15px;margin:0 0 20px;max-width:360px;">Already have FlockTrot? Tap below to send a friend request directly.</p>
-      <a class="open-btn" href="${appLink}" style="display:inline-block;background:#4a6b47;color:#fff;font-size:17px;font-weight:700;padding:16px 34px;border-radius:10px;text-decoration:none;margin-bottom:32px;">Open in FlockTrot</a>
-
-      <div style="background:#ffffff;border:1px solid #e8e0cf;border-radius:12px;padding:22px;max-width:380px;width:100%;box-shadow:0 2px 10px rgba(51,71,47,0.06);box-sizing:border-box;">
-        <h2 style="color:#33472f;font-size:16px;margin:0 0 10px;font-family:'Zilla Slab',serif;">Don't have FlockTrot yet?</h2>
-        ${storeSection}
-        <p style="font-size:12px;color:#9a917c;line-height:1.5;margin:16px 0 0;">After installing, come back to this link, or open FlockTrot, go to Menu &gt; Friends &gt; Add a friend, and enter this Camper ID:</p>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
-          <div style="flex:1;background:#FAF3E7;border:1px dashed #c9bfa3;border-radius:6px;padding:9px 11px;font-family:monospace;font-size:12px;color:#2c3a2c;overflow-x:auto;white-space:nowrap;" id="codeBox">${camperId}</div>
-          <button id="copyBtn" style="background:#c98a3e;color:#fff;border:none;border-radius:6px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;">Copy</button>
-        </div>
-      </div>
-    `;
+    // Same store-first structure as invite.html (2026-08-28 fix) — most taps on
+    // this link are from someone who doesn't have the app yet, so that path
+    // needs to be first-class, not a footnote under a button that may silently
+    // do nothing.
+    app.innerHTML =
+      '<h1 style="font-size:1.75rem;margin-bottom:var(--space-2)">Add me on FlockTrot!</h1>' +
+      '<p style="color:var(--ink-muted);max-width:34ch;margin-bottom:var(--space-6)">Already have FlockTrot? Tap below to send a friend request directly.</p>' +
+      '<a class="btn btn--primary" href="' + appLink + '" style="font-size:1.05rem;padding:15px 34px;margin-bottom:var(--space-7)">Open in FlockTrot</a>' +
+      '<div class="panel" style="width:100%;text-align:left">' +
+        '<h2 style="font-size:1.05rem;margin-bottom:var(--space-4)">Don\'t have FlockTrot yet?</h2>' +
+        storeButtons() +
+        '<p style="font-size:.82rem;color:var(--ink-muted);line-height:1.55;margin:var(--space-5) 0 0">After installing, come back to this link, or open FlockTrot, go to Menu &gt; Friends &gt; Add a friend, and enter this Camper ID:</p>' +
+        '<div class="code-row">' +
+          '<div class="code-box" id="codeBox">' + camperId + '</div>' +
+          '<button id="copyBtn" class="btn btn--amber btn--sm" type="button">Copy</button>' +
+        '</div>' +
+      '</div>';
 
     // No scripted auto-navigation to appLink — see invite.html's identical
-    // note: iOS Safari can treat that as untrusted and suppress the real
-    // tap on the button right after it too.
+    // note: iOS Safari can treat that as untrusted and suppress the real tap
+    // on the button right after it too.
 
     document.getElementById("copyBtn").addEventListener("click", function () {
-      const btn = this;
-      navigator.clipboard.writeText(camperId).then(() => {
+      var btn = this;
+      navigator.clipboard.writeText(camperId).then(function () {
         btn.textContent = "Copied!";
-        btn.style.background = "#4a6b47";
-        setTimeout(() => {
+        btn.classList.remove("btn--amber");
+        btn.classList.add("btn--primary");
+        setTimeout(function () {
           btn.textContent = "Copy";
-          btn.style.background = "#c98a3e";
+          btn.classList.remove("btn--primary");
+          btn.classList.add("btn--amber");
         }, 2000);
       });
     });
