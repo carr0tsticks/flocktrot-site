@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# invite.html and friend.html are per-link landing pages that only do anything
+# with a ?token= in the URL, so there is nothing worth indexing there. They are
+# kept crawlable on purpose and carry <meta name="robots" content="noindex">
+# instead: a Disallow here would stop Google fetching the page at all, which
+# also stops it ever seeing the noindex, and a blocked-but-linked URL can still
+# end up listed in results.
+
+Sitemap: https://www.flocktrot.com/sitemap.xml

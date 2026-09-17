@@ -2,114 +2,685 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlockTrot — Group camping trip planner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>FlockTrot — Group Camping Trip Planner App for Friends &amp; Family</title>
+<meta name="description" content="Free group camping trip planner for iPhone and Android. Build a shared itinerary, split costs and track who's bringing which supplies — all in one app.">
+<link rel="canonical" href="https://www.flocktrot.com/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#FAF3E7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14180F" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-title" content="FlockTrot">
+
+<!-- Open Graph / social sharing — matters more than usual here, because the
+     main way this site spreads is one camper sending the link to their group -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FlockTrot">
+<meta property="og:url" content="https://www.flocktrot.com/">
+<meta property="og:title" content="FlockTrot — Group Camping Trip Planner for Friends &amp; Family">
+<meta property="og:description" content="Build a shared itinerary, split costs, and track who's bringing what — instead of juggling group texts and spreadsheets. Free on iPhone and Android.">
+<meta property="og:image" content="https://www.flocktrot.com/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FlockTrot — plan group camping trips together. Two phones showing a trip list and a shared supplies list.">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FlockTrot — Group Camping Trip Planner for Friends &amp; Family">
+<meta name="twitter:description" content="Build a shared itinerary, split costs, and track who's bringing what — instead of juggling group texts and spreadsheets. Free on iPhone and Android.">
+<meta name="twitter:image" content="https://www.flocktrot.com/img/og-image.png">
+
+<!-- Native app banners / deep-link association -->
+<meta name="apple-itunes-app" content="app-id=6800438059">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="img/trip-list.webp" imagesrcset="img/trip-list.webp 1x, img/trip-list@2x.webp 2x" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-body{margin:0}
-a{color:#4a6b47}
-a:hover{color:#33472f}
-</style>
+<link rel="stylesheet" href="styles.css">
+
+<script>
+  // Set before first paint so the scroll-reveal CSS only ever applies when JS
+  // is actually running. If this never executes, .reveal stays visible.
+  document.documentElement.className += " js";
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.flocktrot.com/#org",
+      "name": "FlockTrot",
+      "url": "https://www.flocktrot.com/",
+      "logo": "https://www.flocktrot.com/img/icon-512.png",
+      "email": "flocktrot@gmail.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.flocktrot.com/#website",
+      "url": "https://www.flocktrot.com/",
+      "name": "FlockTrot",
+      "description": "Group camping trip planner app for friends and family.",
+      "publisher": { "@id": "https://www.flocktrot.com/#org" },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "MobileApplication",
+      "@id": "https://www.flocktrot.com/#app",
+      "name": "FlockTrot",
+      "alternateName": "FlockTrot: Group Camping Trip Planner",
+      "applicationCategory": "TravelApplication",
+      "applicationSubCategory": "Trip Planner",
+      "operatingSystem": "iOS 15.1 or later, Android 8.0 or later",
+      "url": "https://www.flocktrot.com/",
+      "installUrl": [
+        "https://apps.apple.com/us/app/flocktrot/id6800438059",
+        "https://play.google.com/store/apps/details?id=com.flocktrot.camptripplanner"
+      ],
+      "downloadUrl": "https://www.flocktrot.com/",
+      "screenshot": [
+        "https://www.flocktrot.com/img/trip-list@2x.webp",
+        "https://www.flocktrot.com/img/itinerary-list@2x.webp",
+        "https://www.flocktrot.com/img/supplies@2x.webp",
+        "https://www.flocktrot.com/img/expenses@2x.webp"
+      ],
+      "description": "FlockTrot brings everything a group needs for a camping trip into one shared place: a day-by-day itinerary in list, calendar or map view, a shared supplies and meals list, expense splitting, group chat, campsite details, a reusable personal gear list, and offline access at the campground.",
+      "featureList": [
+        "Shared day-by-day itinerary with list, calendar and map views",
+        "AI trip builder that drafts a plan from a plain-language description",
+        "Group chat with one-tap capture into itinerary, supplies or expenses",
+        "Shared supplies and meal coordination",
+        "Expense splitting and settle-up balances",
+        "Reusable personal gear list",
+        "Multiple groups within a single trip",
+        "Campsite address, map and photos",
+        "Offline access to loaded trips"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "publisher": { "@id": "https://www.flocktrot.com/#org" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.flocktrot.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is FlockTrot free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. FlockTrot is free to download and use on both iPhone and Android. There is no paid tier, no subscription, and no ads." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I join a camping trip someone invited me to?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Open the invite link the trip organiser sends you. If you already have FlockTrot installed, the link opens the invite directly. If you don't, the page walks you through installing the app first, and you're added to the trip automatically once you open FlockTrot and sign in." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does everyone in the group need the app?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Everyone who wants to see or edit the shared plan needs FlockTrot, since the itinerary, supplies and expenses all live in the app. It's free on both iPhone and Android, so nobody is left out because of their phone." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does FlockTrot work without signal at the campground?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Once you've opened a trip while you still had a connection, your itinerary, supplies list and campsite details stay available offline. Changes you make sync back up the next time you have signal." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can FlockTrot split costs between people on the trip?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Log shared expenses like campsite fees, firewood or groceries, split each one however makes sense for that cost, and FlockTrot works out who owes who so you can settle up at the end of the trip." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can FlockTrot plan trips that aren't camping?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. FlockTrot is built around camping, but the same shared itinerary, supplies, expenses and chat work for any group trip — a road trip, a cabin weekend, a festival, a family reunion or a beach house. You can set a hotel or rental as the stay instead of a campground." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can we camp as more than one family or friend group?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. A trip can hold several groups — each family or friend group gets its own group inside the trip, with one shared view of the itinerary and who's bringing what, so large multi-family trips don't turn into one giant undifferentiated list." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I delete my FlockTrot account?",
+          "acceptedAnswer": { "@type": "Answer", "text": "In the app, go to Menu, then Camper Profile, then Delete Account. The account deletion page on this site details exactly what is removed." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
+
 <body>
-<div style="min-height:100vh;background:#FAF3E7;font-family:'Work Sans',sans-serif;color:#2c3a2c;display:flex;flex-direction:column;">
+<a class="skip" href="#main">Skip to content</a>
 
-  <header style="width:100%;box-sizing:border-box;">
-    <div style="display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:22px 28px;">
-      <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:#33472f;font-weight:700;font-size:18px;font-family:'Zilla Slab',serif;">FlockTrot</a>
-      <nav style="display:flex;gap:24px;">
-        <a href="#support" style="color:#6b6558;text-decoration:none;font-size:14px;font-weight:500;">Support</a>
-      </nav>
-    </div>
-  </header>
+<header class="site-header" id="top">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="/">
+      <img src="img/logo.webp" srcset="img/logo.webp 1x, img/logo@2x.webp 2x" width="260" height="63" alt="FlockTrot" style="height:30px;width:auto" decoding="async">
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#features" class="nav-hide-sm">Features</a>
+      <a href="#how" class="nav-hide-sm">How it works</a>
+      <a href="#faq" class="nav-hide-sm">FAQ</a>
+      <a href="#support">Support</a>
+      <a href="#get" class="btn btn--primary btn--sm">Get the app</a>
+    </nav>
+  </div>
+</header>
 
-  <div style="width:100%;box-sizing:border-box;">
-    <div style="max-width:960px;margin:0 auto;padding:0 28px;">
-      <svg width="100%" height="130" viewBox="0 0 800 130" preserveAspectRatio="xMinYMid meet" aria-hidden="true" style="display:block">
-        <polygon points="0,130 150,35 300,130" fill="#c9d6c2"></polygon>
-        <polygon points="110,130 300,18 490,130" fill="#9fb495"></polygon>
-        <polygon points="320,130 500,45 680,130" fill="#4a6b47"></polygon>
-        <polygon points="530,130 660,65 800,130" fill="#33472f"></polygon>
-        <circle cx="690" cy="32" r="24" fill="#c98a3e"></circle>
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="ridge" aria-hidden="true">
+      <svg viewBox="0 0 1440 220" preserveAspectRatio="none" role="presentation" focusable="false">
+        <polygon points="0,220 0,150 210,62 430,220" fill="#C9D6C2"></polygon>
+        <polygon points="150,220 400,34 660,220" fill="#9FB495"></polygon>
+        <polygon points="480,220 760,78 1030,220" fill="#4A6B47" opacity=".55"></polygon>
+        <polygon points="900,220 1150,46 1440,220" fill="#33472F" opacity=".45"></polygon>
       </svg>
     </div>
+
+    <div class="wrap hero__grid">
+      <div>
+        <span class="eyebrow">Free on iPhone &amp; Android</span>
+        <h1>Plan group camping trips together</h1>
+        <p class="hero__lede">
+          FlockTrot gives your whole crew one shared place for the itinerary, the
+          supplies, the campsite and the costs — so nobody's scrolling back through
+          group texts to find out who's bringing the tent.
+        </p>
+
+        <div class="stores" id="get">
+          <a class="store-badge" href="https://apps.apple.com/us/app/flocktrot/id6800438059" rel="noopener">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.05 12.94c-.03-2.7 2.2-4 2.3-4.06-1.25-1.83-3.2-2.08-3.9-2.11-1.66-.17-3.24.98-4.08.98-.84 0-2.14-.96-3.52-.93-1.81.03-3.48 1.05-4.41 2.67-1.88 3.26-.48 8.08 1.35 10.72.9 1.29 1.97 2.74 3.38 2.69 1.36-.06 1.87-.88 3.51-.88s2.1.88 3.53.85c1.46-.03 2.38-1.32 3.27-2.62 1.03-1.5 1.46-2.95 1.48-3.03-.03-.01-2.84-1.09-2.87-4.32zM14.4 4.9c.74-.9 1.24-2.15 1.1-3.4-1.07.05-2.36.72-3.13 1.61-.68.79-1.28 2.06-1.12 3.27 1.2.09 2.42-.6 3.15-1.48z"/></svg>
+            <span class="store-badge__text">
+              <small>Download on the</small>
+              <strong>App Store</strong>
+            </span>
+          </a>
+          <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.flocktrot.camptripplanner" rel="noopener">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 2.3c-.24.26-.38.66-.38 1.18v17.04c0 .52.14.92.38 1.18l.06.06 9.54-9.54v-.44L3.66 2.24l-.06.06z"/><path d="M16.4 15.42l-3.2-3.2v-.44l3.2-3.2.07.04 3.79 2.16c1.08.61 1.08 1.62 0 2.24l-3.79 2.16-.07.04z"/><path d="M16.47 15.38L13.2 12.1 3.6 21.7c.36.38.95.42 1.61.05l11.26-6.37z"/><path d="M16.47 8.62L5.21 2.25c-.66-.37-1.25-.33-1.61.05l9.6 9.6 3.27-3.28z"/></svg>
+            <span class="store-badge__text">
+              <small>Get it on</small>
+              <strong>Google Play</strong>
+            </span>
+          </a>
+        </div>
+
+        <p class="hero__note">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg>
+          Free, no subscription, no ads — and your trips work offline at the campground.
+        </p>
+      </div>
+
+      <div class="phones">
+        <div class="phone phone--lead">
+          <img src="img/trip-list.webp" srcset="img/trip-list.webp 1x, img/trip-list@2x.webp 2x"
+               width="420" height="910" fetchpriority="high" decoding="async"
+               alt="The FlockTrot trip list showing three upcoming trips, each with its campground, dates and how many groups and members are going.">
+        </div>
+        <div class="phone phone--back" aria-hidden="true">
+          <img src="img/supplies.webp" srcset="img/supplies.webp 1x, img/supplies@2x.webp 2x"
+               width="420" height="910" loading="lazy" decoding="async" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRUST STRIP ================= -->
+  <div class="trust">
+    <span class="trust__item">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg>
+      Free to download and use
+    </span>
+    <span class="trust__item">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+      iPhone and Android
+    </span>
+    <span class="trust__item">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 3l18 18"/><path d="M5 12.5a10 10 0 0 1 4-2.4M2 8.8a15 15 0 0 1 5-3M10.6 5.1A15 15 0 0 1 22 8.8M18.7 12.4a10 10 0 0 0-2.3-1.5"/><path d="M8.5 16.2a5 5 0 0 1 6-.8"/><path d="M12 20h.01"/></svg>
+      Works offline at camp
+    </span>
+    <span class="trust__item">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6l8-4z"/></svg>
+      No ads, no subscription
+    </span>
   </div>
 
-  <main style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 24px 64px;margin-top:-28px;">
+  <!-- ================= FEATURES ================= -->
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">Everything in one place</span>
+        <h2>Stop planning your trip across five group texts</h2>
+        <p>
+          Every part of a group camping trip that normally gets lost in a thread —
+          the plan, the packing, the money — has a home in FlockTrot.
+        </p>
+      </div>
 
-    <div style="background:#FAF3E7;border-radius:16px;padding:28px 32px 8px;max-width:600px;">
-      <img class="logo" src="logo.png" alt="FlockTrot logo" style="width:170px;height:auto;margin-bottom:14px;">
-      <p style="color:#6b6558;font-size:17px;margin:0 0 24px;">Plan group camping trips together, all in one app.</p>
+      <div class="features">
+        <article class="card">
+          <div class="card__icon card__icon--forest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4M7.5 14h3M7.5 17.5h6"/></svg>
+          </div>
+          <h3>A shared itinerary</h3>
+          <p>Lay the trip out day by day in list, calendar or map view. Add meals, activities and drives with times and locations everyone can see — and track exactly who's coming to each one.</p>
+        </article>
+
+        <article class="card">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.4L12 15l-1.9-4.6L5.5 9l4.6-1.4L12 3z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg>
+          </div>
+          <h3>AI trip builder <span class="card__tag">Beta</span></h3>
+          <p>Describe the trip in plain language and FlockTrot drafts a day-by-day plan — where to stay, how you're getting there, meals and activities — for your group to review and adjust.</p>
+        </article>
+
+        <article class="card">
+          <div class="card__icon card__icon--forest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.6-.7L3 21l1.9-5A8.2 8.2 0 0 1 4 11.5 8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+          </div>
+          <h3>Group chat that does something</h3>
+          <p>Every trip gets its own chat. Highlight any message and turn it straight into an itinerary item, a supply someone's bringing, or a shared expense — no retyping.</p>
+        </article>
+
+        <article class="card">
+          <div class="card__icon card__icon--forest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 4.5h6l1 3H8l1-3z"/><path d="M5.5 7.5h13l-1 12a2 2 0 0 1-2 1.8H8.5a2 2 0 0 1-2-1.8l-1-12z"/><path d="M10 12.5l1.6 1.6 3-3"/></svg>
+          </div>
+          <h3>Supplies and meals, claimed</h3>
+          <p>Keep one running list of what the trip needs, tag items to the group bringing them, and claim meals — so you end up with one cooler, not four, and somebody actually brings the stove.</p>
+        </article>
+
+        <article class="card">
+          <div class="card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2a3 3 0 0 0-2.8-1.7c-1.5 0-2.6.8-2.6 2s1 1.7 2.8 2.1c1.8.4 2.9 1 2.9 2.3s-1.2 2.1-2.8 2.1a3.1 3.1 0 0 1-3-1.8M12 6v1.5M12 16.5V18"/></svg>
+          </div>
+          <h3>Split costs fairly</h3>
+          <p>Log the campsite fee, the firewood, the grocery run. Split each cost however makes sense, then see exactly who owes who when it's time to settle up.</p>
+        </article>
+
+        <article class="card">
+          <div class="card__icon card__icon--forest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21.5s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10.5" r="2.6"/></svg>
+          </div>
+          <h3>Campsite details everyone has</h3>
+          <p>Save the campground address, a map and photos in the trip, and see who's claimed which site if your group is spread across several — so late arrivals can actually find you.</p>
+        </article>
+      </div>
     </div>
+  </section>
 
-    <div style="display:flex;align-items:center;gap:14px;width:100%;max-width:340px;margin-bottom:28px;">
-      <div style="flex:1;height:1px;background:#e8e0cf;"></div>
-      <svg width="26" height="26" viewBox="0 0 28 28" aria-hidden="true">
-        <line x1="4" y1="24" x2="24" y2="14" stroke="#c9bfa3" stroke-width="2"></line>
-        <line x1="24" y1="24" x2="4" y2="14" stroke="#c9bfa3" stroke-width="2"></line>
-        <ellipse cx="14" cy="19" rx="3.4" ry="7" fill="#c98a3e"></ellipse>
-        <ellipse cx="14" cy="17" rx="2" ry="4.2" fill="#e3ab5f"></ellipse>
+  <!-- ================= SHOWCASE ================= -->
+  <section class="section section--alt">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">A look inside</span>
+        <h2>Built for the way groups actually plan</h2>
+        <p>Not a checklist app with people bolted on — a shared trip everyone edits.</p>
+      </div>
+
+      <div class="showcase">
+
+        <article class="show-row reveal">
+          <div>
+            <h3>Describe the trip. Get a plan to argue about.</h3>
+            <p>
+              The hardest part of a group trip is the blank page. Tell FlockTrot where
+              you're going and for how long, and it drafts a full day-by-day
+              itinerary — transport, a place to stay, meals and activities — so your
+              group starts from something real instead of an empty thread.
+            </p>
+            <ul class="checklist">
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Ask for changes later, right from the trip or in chat</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Everything it suggests is editable — nothing is locked in</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> In beta, and switchable off in Settings if it's not for you</li>
+            </ul>
+          </div>
+          <div class="show-row__media">
+            <div class="phone">
+              <img src="img/ai-planning.webp" srcset="img/ai-planning.webp 1x, img/ai-planning@2x.webp 2x"
+                   width="420" height="910" loading="lazy" decoding="async"
+                   alt="FlockTrot trip chat where the AI assistant proposes activities for a Yosemite trip and confirms it has added three suggested items to the itinerary.">
+            </div>
+          </div>
+        </article>
+
+        <article class="show-row show-row--flip reveal">
+          <div>
+            <h3>List, calendar or map — whichever way your group thinks</h3>
+            <p>
+              Some people want the day as a tidy list. Some want to see the gaps on a
+              calendar. Some just want to know how far the trailhead is from the site.
+              The same itinerary renders three ways, so nobody has to plan in a format
+              that doesn't fit their head.
+            </p>
+            <ul class="checklist">
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Per-event attendance, so you know who's actually on the hike</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Weather forecast on each day of the trip</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Export any plan to your phone's calendar</li>
+            </ul>
+          </div>
+          <div class="show-row__media">
+            <div class="phone">
+              <img src="img/calendar-view.webp" srcset="img/calendar-view.webp 1x, img/calendar-view@2x.webp 2x"
+                   width="420" height="910" loading="lazy" decoding="async"
+                   alt="The FlockTrot calendar view of a Yosemite trip, showing meals, a hike and a campsite setup laid out across a timed day grid.">
+            </div>
+          </div>
+        </article>
+
+        <article class="show-row reveal">
+          <div>
+            <h3>Nobody brings four coolers and no stove</h3>
+            <p>
+              A shared supplies list the whole trip can see and claim from, with
+              filters for what's still unassigned. Save your own go-to camping gear
+              once as a personal list, and pull it into every trip after that instead
+              of retyping the same packing list every spring.
+            </p>
+            <ul class="checklist">
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Tag each item to the family or group bringing it</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Claim meals so two people don't both cook Saturday dinner</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Filter to what's still unclaimed before you leave</li>
+            </ul>
+          </div>
+          <div class="show-row__media">
+            <div class="phone">
+              <img src="img/supplies.webp" srcset="img/supplies.webp 1x, img/supplies@2x.webp 2x"
+                   width="420" height="910" loading="lazy" decoding="async"
+                   alt="A FlockTrot supplies list grouped by category, showing beach and pool items with tags for which family has claimed each one and which are still unassigned.">
+            </div>
+          </div>
+        </article>
+
+        <article class="show-row show-row--flip reveal">
+          <div>
+            <h3>Settle up without the awkward spreadsheet</h3>
+            <p>
+              Log what each person paid for as the trip goes — the reservation, the
+              beer run, the firewood — and split each cost between whoever it actually
+              covers. FlockTrot works the balances out, so the drive home doesn't end
+              in mental arithmetic.
+            </p>
+            <ul class="checklist">
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Split evenly, by group, or by custom share</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> A running balance of exactly who owes who</li>
+              <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg> Works across several families on one trip</li>
+            </ul>
+          </div>
+          <div class="show-row__media">
+            <div class="phone">
+              <img src="img/balances.webp" srcset="img/balances.webp 1x, img/balances@2x.webp 2x"
+                   width="420" height="910" loading="lazy" decoding="async"
+                   alt="The FlockTrot balances screen listing which family owes which, with the amount owed beside each pair after costs were split.">
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">How it works</span>
+        <h2>Three steps to a planned trip</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step__num" aria-hidden="true">1</div>
+          <h3>Start the trip</h3>
+          <p>Name it, set the dates and the campground. Or describe the trip and let the AI builder draft the first version of the plan for you.</p>
+        </div>
+        <div class="step">
+          <div class="step__num" aria-hidden="true">2</div>
+          <h3>Invite your crew</h3>
+          <p>Send one link. Everyone who opens it joins the trip — and if they don't have FlockTrot yet, the link walks them through installing it first.</p>
+        </div>
+        <div class="step">
+          <div class="step__num" aria-hidden="true">3</div>
+          <h3>Plan it together</h3>
+          <p>Everyone adds to the itinerary, claims supplies and meals, and logs costs. It all stays in sync — and stays readable offline once you're at the site.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= USE CASES (SEO content) ================= -->
+  <section class="section section--deep" id="trips">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">Who it's for</span>
+        <h2>Any trip where more than one person has opinions</h2>
+        <p>FlockTrot is built around camping, but the shared plan works for any group trip.</p>
+      </div>
+
+      <div class="features">
+        <article class="card">
+          <h3>The annual family camping trip</h3>
+          <p>Several families, one campground, a tradition that's outgrown a group text. Give each family its own group inside the trip, so the supplies list shows who's bringing what without collapsing into one giant undifferentiated list.</p>
+        </article>
+        <article class="card">
+          <h3>A camping weekend with friends</h3>
+          <p>Nobody wants to be the organiser who chases everyone. A shared itinerary and an open supplies list mean people can claim what they're bringing themselves, instead of waiting to be assigned.</p>
+        </article>
+        <article class="card">
+          <h3>Group road trips and cabin weekends</h3>
+          <p>Not camping? Set a hotel or a rental as the stay instead of a campground. The day-by-day itinerary, the shared costs and the group chat all work the same for a road trip, a festival or a beach house.</p>
+        </article>
+        <article class="card">
+          <h3>Family reunions and big group getaways</h3>
+          <p>When the group is too large for everyone to track everyone, per-event attendance shows who's actually coming to the Saturday hike, and expense splitting keeps the shared costs straight between households.</p>
+        </article>
+        <article class="card">
+          <h3>Scouts, clubs and recurring group trips</h3>
+          <p>Save your gear list once and pull it into every trip after that. Trips you've already run stay in Past Trips, so next year's plan starts from what actually worked last time.</p>
+        </article>
+        <article class="card">
+          <h3>First-timers planning a camping trip</h3>
+          <p>If you've never organised one, the AI trip builder gives you a realistic starting plan — meals, drive times, what a day at the site actually looks like — rather than a blank itinerary and a vague sense you've forgotten something.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section section--alt" id="faq">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">FAQ</span>
+        <h2>Common questions</h2>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Is FlockTrot free?</summary>
+          <div class="faq__body"><p>Yes. FlockTrot is free to download and use on both iPhone and Android. There's no paid tier, no subscription and no ads.</p></div>
+        </details>
+
+        <details>
+          <summary>How do I join a camping trip someone invited me to?</summary>
+          <div class="faq__body"><p>Open the invite link the trip organiser sends you. If you already have FlockTrot installed, the link opens the invite directly. If you don't, the page walks you through installing the app first — then you're added to the trip automatically once you open FlockTrot and sign in.</p></div>
+        </details>
+
+        <details>
+          <summary>Does everyone in the group need the app?</summary>
+          <div class="faq__body"><p>Everyone who wants to see or edit the shared plan needs FlockTrot, since the itinerary, supplies and expenses all live in the app. It's free on both iPhone and Android, so nobody gets left out because of their phone.</p></div>
+        </details>
+
+        <details>
+          <summary>Does FlockTrot work without signal at the campground?</summary>
+          <div class="faq__body"><p>Yes. Once you've opened a trip while you still had a connection, your itinerary, supplies list and campsite details stay available offline. Anything you change syncs back up the next time you have signal.</p></div>
+        </details>
+
+        <details>
+          <summary>Can FlockTrot split costs between people on the trip?</summary>
+          <div class="faq__body"><p>Yes. Log shared expenses like campsite fees, firewood or a grocery run, split each one however makes sense for that cost, and FlockTrot works out who owes who so you can settle up at the end of the trip.</p></div>
+        </details>
+
+        <details>
+          <summary>Can FlockTrot plan trips that aren't camping?</summary>
+          <div class="faq__body"><p>Yes. FlockTrot is built around camping, but the same shared itinerary, supplies, expenses and chat work for any group trip — a road trip, a cabin weekend, a festival, a family reunion or a beach house. You can set a hotel or rental as the stay instead of a campground.</p></div>
+        </details>
+
+        <details>
+          <summary>Can we camp as more than one family or friend group?</summary>
+          <div class="faq__body"><p>Yes. A trip can hold several groups — each family or friend group gets its own group inside the trip, with one shared view of the itinerary and who's bringing what. It's built for the multi-family trip that's outgrown a single list.</p></div>
+        </details>
+
+        <details>
+          <summary>How do I delete my account?</summary>
+          <div class="faq__body"><p>In the app: Menu → Camper Profile → Delete Account. See our <a href="delete-account.html">account deletion page</a> for details on exactly what's removed.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA BAND ================= -->
+  <section class="cta-band">
+    <div class="cta-band__ridge" aria-hidden="true">
+      <svg viewBox="0 0 1440 200" preserveAspectRatio="none" role="presentation" focusable="false">
+        <polygon points="0,200 240,50 500,200" fill="#FAF3E7"></polygon>
+        <polygon points="360,200 660,20 980,200" fill="#FAF3E7"></polygon>
+        <polygon points="840,200 1140,64 1440,200" fill="#FAF3E7"></polygon>
       </svg>
-      <div style="flex:1;height:1px;background:#e8e0cf;"></div>
+    </div>
+    <div class="wrap center">
+      <h2>Get everyone on the same page</h2>
+      <p>Free on iPhone and Android. Start a trip, send one link, and let your group fill in the rest.</p>
+      <div class="stores stores--center" style="margin-top:var(--space-6)">
+        <a class="store-badge" href="https://apps.apple.com/us/app/flocktrot/id6800438059" rel="noopener">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.05 12.94c-.03-2.7 2.2-4 2.3-4.06-1.25-1.83-3.2-2.08-3.9-2.11-1.66-.17-3.24.98-4.08.98-.84 0-2.14-.96-3.52-.93-1.81.03-3.48 1.05-4.41 2.67-1.88 3.26-.48 8.08 1.35 10.72.9 1.29 1.97 2.74 3.38 2.69 1.36-.06 1.87-.88 3.51-.88s2.1.88 3.53.85c1.46-.03 2.38-1.32 3.27-2.62 1.03-1.5 1.46-2.95 1.48-3.03-.03-.01-2.84-1.09-2.87-4.32zM14.4 4.9c.74-.9 1.24-2.15 1.1-3.4-1.07.05-2.36.72-3.13 1.61-.68.79-1.28 2.06-1.12 3.27 1.2.09 2.42-.6 3.15-1.48z"/></svg>
+          <span class="store-badge__text"><small>Download on the</small><strong>App Store</strong></span>
+        </a>
+        <a class="store-badge" href="https://play.google.com/store/apps/details?id=com.flocktrot.camptripplanner" rel="noopener">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 2.3c-.24.26-.38.66-.38 1.18v17.04c0 .52.14.92.38 1.18l.06.06 9.54-9.54v-.44L3.66 2.24l-.06.06z"/><path d="M16.4 15.42l-3.2-3.2v-.44l3.2-3.2.07.04 3.79 2.16c1.08.61 1.08 1.62 0 2.24l-3.79 2.16-.07.04z"/><path d="M16.47 15.38L13.2 12.1 3.6 21.7c.36.38.95.42 1.61.05l11.26-6.37z"/><path d="M16.47 8.62L5.21 2.25c-.66-.37-1.25-.33-1.61.05l9.6 9.6 3.27-3.28z"/></svg>
+          <span class="store-badge__text"><small>Get it on</small><strong>Google Play</strong></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SUPPORT ================= -->
+  <section class="section" id="support">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">Support</span>
+        <h2>Questions, bugs, or anything else</h2>
+        <p>We read every message.</p>
+      </div>
+
+      <div class="support-grid">
+        <div class="panel">
+          <h3>Contact us</h3>
+          <p>Email <a href="mailto:flocktrot@gmail.com">flocktrot@gmail.com</a> — we typically reply within a few days.</p>
+        </div>
+        <div class="panel panel--inset">
+          <h3>Something's not working right</h3>
+          <p>Email us at <a href="mailto:flocktrot@gmail.com">flocktrot@gmail.com</a> with what you were doing and what happened — screenshots help a lot. In the app, Menu → Help also has tutorials and FAQs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a class="brand" href="/">
+          <img src="img/logo.webp" srcset="img/logo.webp 1x, img/logo@2x.webp 2x" width="260" height="63" alt="FlockTrot" style="height:30px;width:auto" loading="lazy" decoding="async">
+        </a>
+        <p>The group camping trip planner for friends and family. Free on iPhone and Android.</p>
+      </div>
+
+      <div>
+        <h4>App</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="https://apps.apple.com/us/app/flocktrot/id6800438059" rel="noopener">App Store</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.flocktrot.camptripplanner" rel="noopener">Google Play</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Help &amp; legal</h4>
+        <ul>
+          <li><a href="#support">Support</a></li>
+          <li><a href="mailto:flocktrot@gmail.com">flocktrot@gmail.com</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html">Terms of Service</a></li>
+          <li><a href="delete-account.html">Delete your account</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div style="background:#ffffff;border:1px solid #e8e0cf;border-radius:14px;padding:28px 32px;max-width:560px;box-shadow:0 2px 10px rgba(51,71,47,0.06);margin-bottom:36px;">
-      <p style="font-size:15px;line-height:1.65;margin:0;">FlockTrot is a mobile app for planning group camping trips with family and friends. It helps a group build a shared itinerary, coordinate who's bringing which supplies and meals, track shared costs and settle up, and keep everyone's campsite details in one place — instead of juggling group texts and spreadsheets.</p>
-    </div>
-
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;">
-      <a href="https://apps.apple.com/us/app/flocktrot/id6800438059" style="display:inline-flex;align-items:center;gap:10px;background:#000;color:#fff;font-size:14px;font-weight:700;padding:12px 22px;border-radius:10px;text-decoration:none;">
-        Download on the App Store
-      </a>
-      <span style="display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#e8e0cf;color:#6b6558;font-size:14px;font-weight:600;">
-        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,2 14,14 2,14" fill="currentColor"></polygon></svg>
-        In testing on Android
-      </span>
-    </div>
-
-  </main>
-
-  <div id="support" style="width:100%;box-sizing:border-box;background:#ffffff;border-top:1px solid #e8e0cf;border-bottom:1px solid #e8e0cf;">
-    <div style="max-width:640px;margin:0 auto;padding:48px 28px;">
-      <h2 style="color:#33472f;font-size:24px;margin:0 0 8px;font-family:'Zilla Slab',serif;">Support</h2>
-      <p style="color:#6b6558;font-size:14px;margin:0 0 24px;">Questions, bugs, or anything else — we read every message.</p>
-
-      <div style="background:#FAF3E7;border:1px solid #e8e0cf;border-radius:10px;padding:18px 20px;margin-bottom:20px;">
-        <p style="font-size:15px;margin:0 0 10px;font-weight:600;color:#33472f;">Contact us</p>
-        <p style="font-size:14px;margin:0;">Email <a href="mailto:flocktrot@gmail.com">flocktrot@gmail.com</a> — we typically reply within a few days.</p>
-      </div>
-
-      <p style="font-size:15px;font-weight:600;color:#33472f;margin:0 0 10px;">Common questions</p>
-      <div style="margin-bottom:14px;">
-        <p style="font-size:14px;font-weight:600;margin:0 0 3px;">How do I join a trip?</p>
-        <p style="font-size:14px;color:#6b6558;margin:0;">Open the invite link someone on the trip sends you. If you already have FlockTrot, it opens the invite directly. If not, the page walks you through downloading the app first — then you're added automatically once you open the app and sign in.</p>
-      </div>
-      <div style="margin-bottom:14px;">
-        <p style="font-size:14px;font-weight:600;margin:0 0 3px;">How do I delete my account?</p>
-        <p style="font-size:14px;color:#6b6558;margin:0;">In the app: Menu → Camper Profile → Delete Account. See our <a href="delete-account.html">account deletion page</a> for details on what's removed.</p>
-      </div>
-      <div style="margin-bottom:0;">
-        <p style="font-size:14px;font-weight:600;margin:0 0 3px;">Something's not working right</p>
-        <p style="font-size:14px;color:#6b6558;margin:0;">Email us at <a href="mailto:flocktrot@gmail.com">flocktrot@gmail.com</a> with what you were doing and what happened — screenshots help a lot. In the app, Menu → Help also has tutorials and FAQs.</p>
-      </div>
+    <div class="site-footer__legal">
+      <p>
+        FlockTrot uses Google Sign-In to create your account. We only request your name and
+        email address, which we use to identify you to your trip groups — we don't request
+        access to your Gmail, Drive, or any other Google data. See our
+        <a href="privacy-policy.html">Privacy Policy</a> for full details on what we collect and why.
+      </p>
+      <p>© 2026 FlockTrot</p>
     </div>
   </div>
+</footer>
 
-  <footer style="width:100%;box-sizing:border-box;border-top:1px solid #e8e0cf;padding:24px 24px;">
-    <div style="max-width:960px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:10px;">
-      <nav style="display:flex;gap:16px;">
-        <a href="#support" style="color:#4a6b47;text-decoration:none;font-size:13px;">Support</a>
-        <span style="color:#c9bfa3;font-size:13px;">·</span>
-        <a href="privacy-policy.html" style="color:#4a6b47;text-decoration:none;font-size:13px;">Privacy Policy</a>
-        <span style="color:#c9bfa3;font-size:13px;">·</span>
-        <a href="terms-of-service.html" style="color:#4a6b47;text-decoration:none;font-size:13px;">Terms of Service</a>
-      </nav>
-      <p style="color:#6b6558;font-size:12px;max-width:480px;text-align:center;margin:2px 0 0;">FlockTrot uses Google Sign-In to create your account. We only request your name and email address, which we use to identify you to your trip groups — we don't request access to your Gmail, Drive, or any other Google data. See our <a href="privacy-policy.html" style="color:#6b6558;text-decoration:underline;">Privacy Policy</a> for full details on what we collect and why.</p>
-      <div style="color:#6b6558;font-size:12px;">© 2026 FlockTrot</div>
-    </div>
-  </footer>
+<script>
+  // Sticky-header hairline: only show the border once the page has moved.
+  (function () {
+    var header = document.querySelector(".site-header");
+    if (!header) return;
+    var tick = false;
+    function update() {
+      header.setAttribute("data-scrolled", window.scrollY > 8 ? "true" : "false");
+      tick = false;
+    }
+    addEventListener("scroll", function () {
+      if (!tick) { tick = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  })();
 
-</div>
+  // Scroll reveal. Opt out entirely when the visitor prefers reduced motion,
+  // and when IntersectionObserver is missing just show everything.
+  (function () {
+    var items = document.querySelectorAll(".reveal");
+    if (!items.length) return;
+    var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || !("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("is-in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 </body>
 </html>
