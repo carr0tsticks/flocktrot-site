@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get FlockTrot</title>
+<!--
+  /get — the destination for paid links (Reddit Ads and anything else that
+  can only take one URL). Detects the phone and sends it straight to the
+  right store with attribution attached, so installs show up as a campaign
+  in App Store Connect and as a tracked channel in Play Console. Desktop
+  goes to the homepage with the same UTM tags.
+
+  Usage:  https://www.flocktrot.com/get?src=reddit&c=camping-sep26
+    src  the channel  (default "reddit")     -> utm_source / Apple campaign prefix
+    c    the campaign (default "camping-sep26")
+
+  Apple attribution needs a provider token ("pt=") generated once in App
+  Store Connect > App Analytics > Acquisition > Campaigns. Paste it into
+  APPLE_PT below; until it is set the App Store link carries no campaign.
+-->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FAF3E7">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<style>
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background:#FAF3E7; color:#3B3220;
+         min-height:100vh; display:grid; place-items:center; text-align:center; padding:24px; }
+  h1 { font-size:1.3rem; margin:0 0 8px; }
+  p { color:#7A7057; margin:0 0 20px; }
+  a.btn { display:inline-block; margin:6px; padding:12px 20px; border-radius:999px; background:#6B7A45; color:#fff; text-decoration:none; font-weight:600; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Opening the store…</h1>
+  <p>If nothing happens, pick your phone:</p>
+  <a class="btn" id="ios" href="https://apps.apple.com/us/app/flocktrot/id6800438059">App Store</a>
+  <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.flocktrot.camptripplanner">Google Play</a>
+</main>
+<script>
+(function () {
+  var APPLE_PT = "";                       // App Store Connect campaign provider token
+  var q = new URLSearchParams(location.search);
+  var src = (q.get("src") || "reddit").replace(/[^a-z0-9_-]/gi, "").toLowerCase() || "reddit";
+  var camp = (q.get("c") || "camping-sep26").replace(/[^a-z0-9_-]/gi, "").toLowerCase() || "camping-sep26";
+  var medium = "cpc";
+
+  // Play Console reads UTM tags out of the encoded `referrer` parameter.
+  var utm = "utm_source=" + src + "&utm_medium=" + medium + "&utm_campaign=" + camp;
+  var play = "https://play.google.com/store/apps/details?id=com.flocktrot.camptripplanner&referrer=" + encodeURIComponent(utm);
+
+  // App Store Connect reads `pt` (provider) + `ct` (campaign); mt=8 = apps.
+  var ios = "https://apps.apple.com/us/app/flocktrot/id6800438059";
+  if (APPLE_PT) ios += "?pt=" + encodeURIComponent(APPLE_PT) + "&ct=" + encodeURIComponent(src + "-" + camp) + "&mt=8";
+
+  document.getElementById("ios").href = ios;
+  document.getElementById("android").href = play;
+
+  var ua = navigator.userAgent || "";
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var dest = isIOS ? ios : isAndroid ? play : "/?" + utm;
+  setTimeout(function () { location.replace(dest); }, 60);
+})();
+</script>
+</body>
+</html>
