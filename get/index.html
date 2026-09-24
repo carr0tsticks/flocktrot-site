@@ -15,9 +15,10 @@
     src  the channel  (default "reddit")     -> utm_source / Apple campaign prefix
     c    the campaign (default "camping-sep26")
 
-  Apple attribution needs a provider token ("pt=") generated once in App
-  Store Connect > App Analytics > Acquisition > Campaigns. Paste it into
-  APPLE_PT below; until it is set the App Store link carries no campaign.
+  Apple attribution uses the provider token ("pt=") generated once in App
+  Store Connect > App Analytics > Acquisition > Campaigns (2026-09-23). The
+  campaign name sent as "ct=" is "<src>-<c>", so results land under
+  Acquisition > Campaigns keyed by that name.
 -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FAF3E7">
@@ -39,7 +40,7 @@
 </main>
 <script>
 (function () {
-  var APPLE_PT = "";                       // App Store Connect campaign provider token
+  var APPLE_PT = "129297103";              // App Store Connect campaign provider token (FlockTrot)
   var q = new URLSearchParams(location.search);
   var src = (q.get("src") || "reddit").replace(/[^a-z0-9_-]/gi, "").toLowerCase() || "reddit";
   var camp = (q.get("c") || "camping-sep26").replace(/[^a-z0-9_-]/gi, "").toLowerCase() || "camping-sep26";
