@@ -19,6 +19,15 @@
   Store Connect > App Analytics > Acquisition > Campaigns (2026-09-23). The
   campaign name sent as "ct=" is "<src>-<c>", so results land under
   Acquisition > Campaigns keyed by that name.
+
+  Each visit is also counted (2026-09-28) through the public log_link_hit()
+  function in the prod Supabase project, so the dashboard can show how many
+  ad clicks actually arrive, and from which kind of device. It records only
+  the source, campaign and device class (iPhone / Android / desktop): no IP
+  address, no user agent, no cookie. The key below is the publishable anon
+  key the app itself ships with; it can call that function and nothing
+  else on the table. The redirect never waits more than 700 ms for it.
+  Add &nolog=1 to test the link without counting the visit.
 -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FAF3E7">
@@ -61,7 +70,20 @@
   var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   var isAndroid = /Android/i.test(ua);
   var dest = isIOS ? ios : isAndroid ? play : "/?" + utm;
-  setTimeout(function () { location.replace(dest); }, 60);
+
+  var gone = false;
+  function go() { if (!gone) { gone = true; location.replace(dest); } }
+  if (q.get("nolog")) { setTimeout(go, 60); return; }
+  setTimeout(go, 700);
+  try {
+    var SUPABASE_URL = "https://nnfcyjjhhzhbrtnxjllw.supabase.co";
+    var SUPABASE_KEY = "sb_publishable_jLkLItc2ai4-TwOQufjI7w_eqlVatVc";
+    fetch(SUPABASE_URL + "/rest/v1/rpc/log_link_hit", {
+      method: "POST",
+      headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify({ p_src: src, p_campaign: camp, p_device: isIOS ? "ios" : isAndroid ? "android" : "desktop" })
+    }).then(go, go);
+  } catch (e) { go(); }
 })();
 </script>
 </body>
