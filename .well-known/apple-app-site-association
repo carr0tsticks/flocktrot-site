@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["T2CR7YSBBS.com.flocktrot.camptripplanner"],
+        "components": [
+          { "/": "/invite.html", "?": { "token": "?*" }, "comment": "Trip invite links open the app" },
+          { "/": "/friend.html", "?": { "id": "?*" }, "comment": "Friend links open the app" }
+        ]
+      }
+    ]
+  }
+}

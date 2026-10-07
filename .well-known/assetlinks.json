@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.flocktrot.camptripplanner",
+      "sha256_cert_fingerprints": ["E2:FD:D2:98:E5:B7:A7:65:4A:18:64:4A:BD:43:30:33:F2:6C:59:8D:7D:00:47:C6:BF:95:1D:8D:72:8E:3E:01"]
+    }
+  }
+]
