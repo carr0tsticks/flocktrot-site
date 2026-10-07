@@ -1,0 +1,5 @@
+# GitHub Pages runs this plain-HTML site through Jekyll, which skips dot
+# folders. .well-known holds the app-link verification files that let
+# invite.html and friend.html links open the FlockTrot app directly
+# (iOS Universal Links, Android App Links), so it has to be published.
+include: [".well-known"]
