@@ -260,6 +260,29 @@
     </span>
   </div>
 
+  <!-- ================= VIDEO ================= -->
+  <!-- 2026-10-07: the Play Store promo (youtu.be/QAN34vKmXi0). A click-to-play
+       facade: the poster is our own image, and nothing loads from YouTube until
+       the visitor presses play (then the privacy-enhanced youtube-nocookie embed). -->
+  <section class="section section--tight" id="video">
+    <div class="wrap">
+      <div class="section__head">
+        <span class="eyebrow">See it in 30 seconds</span>
+        <h2>One plan the whole group can see</h2>
+      </div>
+      <div class="video">
+        <button class="video__facade" type="button" data-yt="QAN34vKmXi0" aria-label="Play the 30-second FlockTrot video">
+          <img src="img/promo-video.webp" srcset="img/promo-video.webp 960w, img/promo-video@2x.webp 1920w"
+               sizes="(max-width: 960px) 100vw, 920px" width="960" height="540" loading="lazy" decoding="async"
+               alt="Friends laughing around a cabin table, with the words: Plan the group trip, together.">
+          <span class="video__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="34" height="34"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= FEATURES ================= -->
   <section class="section" id="features">
     <div class="wrap">
@@ -682,6 +705,20 @@
       });
     }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
     items.forEach(function (el) { io.observe(el); });
+  })();
+  // Video facade: swap the poster for the YouTube player on the first click.
+  (function () {
+    var btn = document.querySelector(".video__facade");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + btn.getAttribute("data-yt") + "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+      f.title = "FlockTrot in 30 seconds";
+      f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      f.allowFullscreen = true;
+      f.className = "video__frame";
+      btn.replaceWith(f);
+    });
   })();
 </script>
 </body>
