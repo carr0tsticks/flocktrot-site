@@ -131,8 +131,8 @@
         storeButtons(playLink) +
         '<p style="font-size:.82rem;color:var(--ink-muted);line-height:1.55;margin:var(--space-5) 0 0">' +
           (IS_ANDROID
-            ? 'Install from the button above and FlockTrot opens your invite the first time you sign in. If it doesn’t, choose <strong>I have an invite</strong> in FlockTrot and paste this code:'
-            : 'After installing, tap your invite link again and it opens in FlockTrot. Or in FlockTrot, choose <strong>I have an invite</strong> and paste this code:') +
+            ? 'Install from the button above and FlockTrot opens your invite the first time you sign in. If it doesn’t, choose <strong>I have an invite</strong> in FlockTrot and tap <strong>Paste</strong> (the store button copied your invite), or paste this code:'
+            : 'The store button also copies your invite. After installing, open FlockTrot, choose <strong>I have an invite</strong> and tap <strong>Paste</strong>. Or tap your invite link again, or paste this code:') +
         '</p>' +
         '<div class="code-row">' +
           '<div class="code-box" id="codeBox">' + token + '</div>' +
@@ -146,6 +146,18 @@
     // untrusted and suppress it — and that suppression was observed to also
     // swallow the *genuine* tap on the "Open in FlockTrot" button below it on
     // the same page load. The button's own href is the only path now.
+
+    // 2026-10-14: tapping a store button also copies the invite, so after the
+    // install the app's "I have an invite" sheet joins with one Paste tap
+    // (iPhone gets nothing through the App Store). writeText starts inside
+    // the tap, before the store opens; failures are ignored (the code and the
+    // Copy button below are still there).
+    var inviteUrl = "https://www.flocktrot.com/invite.html?token=" + encodeURIComponent(token);
+    Array.prototype.forEach.call(document.querySelectorAll(".store-badge"), function (a) {
+      a.addEventListener("click", function () {
+        try { navigator.clipboard.writeText(inviteUrl).catch(function () {}); } catch (e) {}
+      });
+    });
 
     document.getElementById("copyBtn").addEventListener("click", function () {
       var btn = this;
