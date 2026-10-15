@@ -63,10 +63,26 @@
   // URL that names our package to Android, which opens FlockTrot (any version;
   // it's the same scheme) or, if it isn't installed, the Play Store listing.
   // iOS keeps the plain scheme.
-  function appHref(path) {
-    if (!/android/i.test(navigator.userAgent)) return "camptripplanner://" + path;
+  var IS_ANDROID = /android/i.test(navigator.userAgent);
+
+  // 2026-10-14: on Android the invite rides along through the install. The
+  // Play listing gets an install referrer carrying the invite code, and
+  // FlockTrot reads it on its first launch and joins the trip after sign-in
+  // (no second tap on the link). The Play button opens the Play Store APP
+  // (market:// intent, same as /get), since the Play website inside an in-app
+  // browser isn't signed in and can't install.
+  function playWithInvite(token) {
+    var referrer = "utm_source=invite&utm_medium=link&invite=" + token;
+    var web = PLAY_STORE + "&referrer=" + encodeURIComponent(referrer);
+    if (!IS_ANDROID) return web;
+    return "intent://details?id=com.flocktrot.camptripplanner&referrer=" + encodeURIComponent(referrer) +
+           "#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=" + encodeURIComponent(web) + ";end";
+  }
+
+  function appHref(path, playFallback) {
+    if (!IS_ANDROID) return "camptripplanner://" + path;
     return "intent://" + path + "#Intent;scheme=camptripplanner;package=com.flocktrot.camptripplanner;" +
-           "S.browser_fallback_url=" + encodeURIComponent(PLAY_STORE) + ";end";
+           "S.browser_fallback_url=" + encodeURIComponent(playFallback || PLAY_STORE) + ";end";
   }
 
   var APPLE_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.05 12.94c-.03-2.7 2.2-4 2.3-4.06-1.25-1.83-3.2-2.08-3.9-2.11-1.66-.17-3.24.98-4.08.98-.84 0-2.14-.96-3.52-.93-1.81.03-3.48 1.05-4.41 2.67-1.88 3.26-.48 8.08 1.35 10.72.9 1.29 1.97 2.74 3.38 2.69 1.36-.06 1.87-.88 3.51-.88s2.1.88 3.53.85c1.46-.03 2.38-1.32 3.27-2.62 1.03-1.5 1.46-2.95 1.48-3.03-.03-.01-2.84-1.09-2.87-4.32zM14.4 4.9c.74-.9 1.24-2.15 1.1-3.4-1.07.05-2.36.72-3.13 1.61-.68.79-1.28 2.06-1.12 3.27 1.2.09 2.42-.6 3.15-1.48z"/></svg>';
@@ -80,9 +96,9 @@
   // 2026-09-17: Android shipped, so the old "finishing up testing, email us for
   // early access" fallback is gone. Both stores are live; we just lead with the
   // one that matches the device so the right tap target comes first.
-  function storeButtons() {
+  function storeButtons(playHref) {
     var apple = badge(APP_STORE, "Download on the", "App Store", APPLE_SVG);
-    var play = badge(PLAY_STORE, "Get it on", "Google Play", PLAY_SVG);
+    var play = badge(playHref || PLAY_STORE, "Get it on", "Google Play", PLAY_SVG);
     var order = /android/i.test(navigator.userAgent) ? [play, apple] : [apple, play];
     return '<div style="display:flex;flex-direction:column;gap:var(--space-2)">' + order.join("") + '</div>';
   }
@@ -95,7 +111,9 @@
       '<h1 style="font-size:1.6rem">Invite link incomplete</h1>' +
       '<p style="color:var(--ink-muted);max-width:36ch">This invite link is missing its code. Ask whoever invited you to resend it from FlockTrot.</p>';
   } else {
-    var appLink = appHref("invite/" + encodeURIComponent(token));
+    var playLink = playWithInvite(encodeURIComponent(token));
+    var appLink = appHref("invite/" + encodeURIComponent(token), PLAY_STORE + "&referrer=" +
+      encodeURIComponent("utm_source=invite&utm_medium=link&invite=" + encodeURIComponent(token)));
 
     // 2026-08-28: the real gap reported by a real tester (two sisters who
     // didn't have the app yet) wasn't the copy — it's that this page never
@@ -110,8 +128,12 @@
       '<a class="btn btn--primary" href="' + appLink + '" style="font-size:1.05rem;padding:15px 34px;margin-bottom:var(--space-7)">Open in FlockTrot</a>' +
       '<div class="panel" style="width:100%;text-align:left">' +
         '<h2 style="font-size:1.05rem;margin-bottom:var(--space-4)">Don\'t have FlockTrot yet?</h2>' +
-        storeButtons() +
-        '<p style="font-size:.82rem;color:var(--ink-muted);line-height:1.55;margin:var(--space-5) 0 0">After installing, come back to this link, or open FlockTrot and tap <strong>Have an invite? Join a trip</strong> in the top-left of your Trips list and paste in this code:</p>' +
+        storeButtons(playLink) +
+        '<p style="font-size:.82rem;color:var(--ink-muted);line-height:1.55;margin:var(--space-5) 0 0">' +
+          (IS_ANDROID
+            ? 'Install from the button above and FlockTrot opens your invite the first time you sign in. If it doesn’t, choose <strong>I have an invite</strong> in FlockTrot and paste this code:'
+            : 'After installing, tap your invite link again and it opens in FlockTrot. Or in FlockTrot, choose <strong>I have an invite</strong> and paste this code:') +
+        '</p>' +
         '<div class="code-row">' +
           '<div class="code-box" id="codeBox">' + token + '</div>' +
           '<button id="copyBtn" class="btn btn--amber btn--sm" type="button">Copy</button>' +
