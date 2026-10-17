@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — FlockTrot</title>
+<meta name="robots" content="noindex">
+<script>
+  // GitHub Pages serves this page for every missing path. The web app lives
+  // at /app/ and handles its own addresses (/app/trips/...), but Pages can't
+  // know that, so hand any /app/... path to the app, which puts it back.
+  (function () {
+    var p = location.pathname;
+    if (p.indexOf("/app/") === 0 && p !== "/app/") {
+      location.replace("/app/?to=" + encodeURIComponent(p.slice(4) + location.search + location.hash));
+    }
+  })();
+</script>
+<meta name="theme-color" content="#FAF3E7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14180F" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="/">
+      <img src="/img/logo.webp" srcset="/img/logo.webp 1x, /img/logo@2x.webp 2x" width="204" height="46" alt="FlockTrot" style="height:40px;width:auto">
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/#support">Support</a>
+      <a href="/app/">Sign in</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="wrap wrap--prose">
+    <div class="page-head">
+      <h1>This trail doesn't go anywhere</h1>
+      <p>The page you were after has moved or never existed.</p>
+    </div>
+    <div class="prose" style="padding-bottom:var(--space-9)">
+      <p><a class="btn btn--primary" href="/">Back to FlockTrot</a></p>
+    </div>
+  </div>
+</main>
+</body>
+</html>
