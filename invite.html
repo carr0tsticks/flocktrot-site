@@ -104,6 +104,10 @@
   }
 
   var token = new URLSearchParams(window.location.search).get("token");
+  // 2026-10-18: the token goes into this page's HTML below, so anything
+  // that isn't a real invite code (a UUID) is treated as a broken link
+  // rather than written into the page.
+  if (token && !/^[0-9a-fA-F-]{36}$/.test(token)) token = null;
   var app = document.getElementById("app");
 
   if (!token) {
