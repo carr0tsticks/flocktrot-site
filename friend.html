@@ -88,6 +88,10 @@
   }
 
   var camperId = new URLSearchParams(window.location.search).get("id");
+  // 2026-10-18: the ID goes into this page's HTML below, so anything that
+  // isn't a Camper ID (letters, digits and dashes, like ABCD-1234) is
+  // treated as a broken link rather than written into the page.
+  if (camperId && !/^[A-Za-z0-9-]{4,40}$/.test(camperId)) camperId = null;
   var app = document.getElementById("app");
 
   if (!camperId) {
