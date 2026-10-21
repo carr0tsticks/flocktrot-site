@@ -550,3 +550,54 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 .video__facade:hover .video__play, .video__facade:focus-visible .video__play { transform: scale(1.08); }
 .video__facade:focus-visible { outline: 3px solid var(--amber-ink); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) { .video__facade img, .video__play { transition: none; } }
+
+/* ---------- On the web (app.flocktrot.com), 2026-10-20 ---------- */
+.hero__web { gap: 8px; }
+.hero__web svg { flex-shrink: 0; }
+
+.web-split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--space-7);
+  align-items: center;
+}
+.web-copy h2 { margin: var(--space-3) 0 var(--space-4); }
+.web-copy > p { color: var(--ink-muted); font-size: 1.05rem; margin: 0 0 var(--space-5); }
+.web-points { list-style: none; margin: 0 0 var(--space-6); padding: 0; display: grid; gap: var(--space-3); }
+.web-points li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; align-items: start; }
+.web-points svg { color: var(--forest); margin-top: 3px; }
+
+/* a quiet browser window around the screenshot */
+.browser {
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  transform: rotate(-0.6deg);
+}
+.browser__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border-soft);
+}
+.browser__bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+.browser__bar span {
+  margin-left: 10px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: .78rem;
+  color: var(--ink-muted);
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+}
+.browser img { display: block; width: 100%; height: auto; }
+
+@media (max-width: 900px) {
+  .web-split { grid-template-columns: 1fr; }
+  .browser { transform: none; }
+}
