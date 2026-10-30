@@ -552,7 +552,7 @@ img, svg, video { max-width: 100%; height: auto; display: block; }
 @media (prefers-reduced-motion: reduce) { .video__facade img, .video__play { transition: none; } }
 
 /* ---------- On the web (app.flocktrot.com), 2026-10-20 ---------- */
-.hero__web { gap: 8px; }
+.hero__web { gap: 8px; min-height: 56px; }
 .hero__web svg { flex-shrink: 0; }
 
 .web-split {
