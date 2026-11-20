@@ -8,8 +8,13 @@
   /get — the destination for paid links (Reddit Ads and anything else that
   can only take one URL). Detects the phone and sends it straight to the
   right store with attribution attached, so installs show up as a campaign
-  in App Store Connect and as a tracked channel in Play Console. Desktop
-  goes to the homepage with the same UTM tags.
+  in App Store Connect and as a tracked channel in Play Console.
+
+  Desktop (2026-11-20) goes to the website, app.flocktrot.com/?src=&c=, where
+  web/src/lib/installFunnel.js counts the first open "from <src>/<c>". It
+  used to land on the homepage, then on "Opening the store…" with only store
+  links: 83 of 192 Reddit visits Nov 13-19 were on a computer, and none of
+  them ever reached the website.
 
   Usage:  https://www.flocktrot.com/get?src=reddit&c=camping-sep26
     src  the channel  (default "reddit")     -> utm_source / Apple campaign prefix
@@ -28,7 +33,7 @@
   the source, campaign and device class (iPhone / Android / desktop): no IP
   address, no user agent, no cookie. The key below is the publishable anon
   key the app itself ships with; it can call that function and nothing
-  else on the table. The redirect never waits more than 700 ms for it.
+  else on the table. The redirect never waits more than 800 ms for it.
   Add &nolog=1 to test the link without counting the visit.
 -->
 <meta name="robots" content="noindex, nofollow">
@@ -40,12 +45,29 @@
   h1 { font-size:1.3rem; margin:0 0 8px; }
   p { color:#7A7057; margin:0 0 20px; }
   a.btn { display:inline-block; margin:6px; padding:12px 20px; border-radius:999px; background:#6B7A45; color:#fff; text-decoration:none; font-weight:600; }
+  a.btn.web { background:#C2632F; padding:14px 26px; font-size:1.05rem; }
+  .desktop { display:none; }
+  .desktop p.small { font-size:.9rem; margin:18px 0 6px; }
+  /* A computer (a mouse, no touch screen) sees the website first, even
+     before the script runs or if it's blocked; a phone sees the stores. */
+  @media (hover: hover) and (pointer: fine) {
+    .desktop { display:block; }
+    .phone { display:none; }
+  }
 </style>
 </head>
 <body>
 <main>
-  <h1>Opening the store…</h1>
-  <p>If nothing happens, pick your phone:</p>
+  <div class="desktop">
+    <h1>Plan your group trip in the browser</h1>
+    <p>Opening FlockTrot on the web…</p>
+    <a class="btn web" id="web" href="https://app.flocktrot.com/">Start planning in your browser</a>
+    <p class="small">Or get the app on your phone:</p>
+  </div>
+  <div class="phone">
+    <h1>Opening the store…</h1>
+    <p>If nothing happens, pick your phone:</p>
+  </div>
   <a class="btn" id="ios" href="https://apps.apple.com/us/app/flocktrot/id6800438059">App Store</a>
   <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=com.flocktrot.camptripplanner">Google Play</a>
 </main>
@@ -76,6 +98,9 @@
 
   document.getElementById("ios").href = ios;
   document.getElementById("android").href = play;
+  // The website counts a first open "from <src>/<c>" (installFunnel.js).
+  var web = "https://app.flocktrot.com/?src=" + encodeURIComponent(src) + "&c=" + encodeURIComponent(camp);
+  document.getElementById("web").href = web;
 
   var ua = navigator.userAgent || "";
   var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -84,17 +109,17 @@
   // links to other apps, and a failed hand-off replaces this page with an
   // error. There, stay put and let a tap on the button do it instead.
   var isWebView = isAndroid && /; wv\)/.test(ua);
-  var dest = isIOS ? ios : isAndroid ? playApp : "/?" + utm;
+  var dest = isIOS ? ios : isAndroid ? playApp : web;
   // The visible button gets the app hand-off too: a tap counts as a user
   // gesture, which some in-app browsers require before leaving for an app.
   if (isAndroid) document.getElementById("android").href = playApp;
   if (isWebView) {
-    document.querySelector("h1").textContent = "Get FlockTrot on Google Play";
-    document.querySelector("p").textContent = "Tap below to open the Play Store.";
+    document.querySelector(".phone h1").textContent = "Get FlockTrot on Google Play";
+    document.querySelector(".phone p").textContent = "Tap below to open the Play Store.";
     document.getElementById("ios").style.display = "none";
-    var web = document.createElement("p");
-    web.innerHTML = 'Nothing happening? <a href="' + play + '">Open the Google Play website</a>.';
-    document.querySelector("main").appendChild(web);
+    var playWeb = document.createElement("p");
+    playWeb.innerHTML = 'Nothing happening? <a href="' + play + '">Open the Google Play website</a>.';
+    document.querySelector("main").appendChild(playWeb);
   }
 
   var gone = false;
@@ -107,7 +132,7 @@
     if (isAndroid) setTimeout(function () { if (!document.hidden) location.replace(play); }, 2500);
   }
   if (q.get("nolog")) { if (!isWebView) setTimeout(go, 60); return; }
-  if (!isWebView) setTimeout(go, 700);
+  if (!isWebView) setTimeout(go, 800);
   try {
     var SUPABASE_URL = "https://nnfcyjjhhzhbrtnxjllw.supabase.co";
     var SUPABASE_KEY = "sb_publishable_jLkLItc2ai4-TwOQufjI7w_eqlVatVc";
